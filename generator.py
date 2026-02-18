@@ -10,7 +10,8 @@ from PIL import Image, ImageDraw, ImageFont
 load_dotenv()
 
 # Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Client initialized lazily
+client = None
 
 def generate_image(prompt, size="1024x1792"): # Vertical aspect ratio for Reels/TikTok
     """
@@ -31,6 +32,10 @@ def generate_image(prompt, size="1024x1792"): # Vertical aspect ratio for Reels/
         return filename
 
     try:
+        global client
+        if not client:
+             client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
         response = client.images.generate(
             model="dall-e-3",
             prompt=prompt,
