@@ -54,7 +54,7 @@ def generate_image(prompt, size="1024x1792"): # Vertical aspect ratio for Reels/
         return filename
     except Exception as e:
         print(f"Error generating image: {e}")
-        return None
+        raise Exception(f"Failed to generate image from OpenAI. Error: {e}")
 
 def add_overlays(image_path, text, arrows=False):
     """
@@ -117,6 +117,10 @@ def create_liminal_reel(theme="classic"):
     """
     print(f"Creating reel with theme: {theme}")
 
+    # 0. Validate API Key
+    if not os.getenv("OPENAI_API_KEY") and os.getenv("MOCK_GENERATION") != "true":
+         raise Exception("Missing OPENAI_API_KEY. Please set it in your environment variables.")
+
     # 1. Define Prompts (Viral Style)
     # Refined for "Backrooms" aesthetic: beige carpet, drop ceiling, dark entity
     base_prompt = "Vertical 9:16. Liminal space, The Backrooms level 0. Endless beige carpet, yellow wallpaper, buzzing fluorescent lights. Two doors at the end of the hallway. Left door is RED, Right door is BLUE. A tall, dark, skinny shadow entity is peeking from the far left corner. POV shot, realistic, vhs camcorder style."
@@ -127,8 +131,8 @@ def create_liminal_reel(theme="classic"):
 
     # 2. Generate Assets
     print("Generating assets...")
+    # generate_image now raises Exception on failure
     intro_raw = generate_image(base_prompt)
-    if not intro_raw: return None
     
     # Add "PICK A DOOR" and Arrows to Intro
     intro_img = add_overlays(intro_raw, "PICK A DOOR", arrows=True)
@@ -141,7 +145,6 @@ def create_liminal_reel(theme="classic"):
         outcome_raw = generate_image(heaven_prompt)
         outcome_text = "YOU SURVIVED"
         
-    if not outcome_raw: return None
     outcome_img = add_overlays(outcome_raw, outcome_text, arrows=False)
 
     # 3. Create Video Clips

@@ -38,7 +38,19 @@ def create():
         else:
             return "Error generating video. Check console logs.", 500
     except Exception as e:
-        return f"An error occurred: {e}", 500
+        # Return a styled error page instead of raw 500
+        error_html = f"""
+        <html>
+            <body style="background:#111; color:red; font-family:monospace; padding:2rem;">
+                <h1>GENERATION FAILED</h1>
+                <p>An error occurred while creating the reel:</p>
+                <div style="background:#222; padding:1rem; border:1px solid red;">{str(e)}</div>
+                <br>
+                <a href="/" style="color:white;">&larr; Go Back</a>
+            </body>
+        </html>
+        """
+        return error_html, 500
 
 @app.route('/generate', methods=['POST'])
 def trigger_generation():
