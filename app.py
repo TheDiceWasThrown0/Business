@@ -67,7 +67,12 @@ def trigger_generation():
 
 @app.route('/health', methods=['GET'])
 def health_check():
-    return jsonify({"status": "ok"}), 200
+    has_key = bool(os.environ.get("OPENAI_API_KEY"))
+    return jsonify({
+        "status": "ok", 
+        "openai_key_present": has_key,
+        "env_vars": list(os.environ.keys()) # Debug only: list keys (not values) to see if vars are injecting
+    }), 200
 
 if __name__ == '__main__':
     # Run on 0.0.0.0 to be accessible
