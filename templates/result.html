@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode Generated</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #ff3333;
+            --card-bg: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+        }
+
+        video {
+            max-width: 100%;
+            height: 70vh;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.2);
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: 1px solid #444;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #444;
+            border-color: #666;
+        }
+
+        .btn-download {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-download:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>EPISODE GENERATED</h1>
+
+    <video controls autoplay>
+        <source src="{{ video_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="controls">
+        <a href="{{ video_url }}" download class="btn btn-download">Download</a>
+        <!-- <a href="#" class="btn">Upload to TikTok (Auth Req)</a> -->
+        <a href="/" class="btn">Generate Another</a>
+    </div>
+</body>
+
+</html>

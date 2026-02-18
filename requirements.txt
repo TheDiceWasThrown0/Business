@@ -1,0 +1,7 @@
+moviepy
+openai
+python-dotenv
+requests
+pillow
+flask
+gunicorn

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liminal Horror Generator</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #ff3333;
+            --card-bg: #1a1a1a;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #333;
+        }
+        h1 {
+            color: var(--accent-color);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Liminal Generator</h1>
+        <form action="/create" method="POST" onsubmit="document.querySelector('.loading').style.display='block'">
+            <div class="form-group">
+                <label for="theme">Theme</label>
+                <select name="theme" id="theme">
+                    <option value="classic">Classic Liminal (Doors)</option>
+                    <option value="backrooms">The Backrooms (Level 0)</option>
+                    <option value="dreamcore">Dreamcore (Ethereal)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="api_key">OpenAI API Key (Optional Override)</label>
+                <input type="text" name="api_key" id="api_key" placeholder="sk-...">
+            </div>
+
+            <button type="submit">GENERATE EPISODE</button>
+            
+            <div class="loading">
+                Generating... This may take up to 60 seconds.<br>
+                Do not refresh.
+            </div>
+        </form>
+    </div>
+</body>
+</html>
